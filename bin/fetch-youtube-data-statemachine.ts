@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { FetchYoutubeDataStatemachineStack } from '../lib/fetch-youtube-data-statemachine-stack';
+import FetchYoutubeDataStatemachineStack from '../lib/fetch-youtube-data-statemachine-stack';
 
 const app = new cdk.App();
 new FetchYoutubeDataStatemachineStack(app, 'FetchYoutubeDataStatemachineStack', {
