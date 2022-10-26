@@ -1,0 +1,1 @@
+aws stepfunctions --endpoint http://localhost:8083 start-execution --state-machine arn:aws:states:ap-northeast-1:123456789012:stateMachine:LocalStatemachine --input file://events/input.json

@@ -1,0 +1,5 @@
+{
+    "name": "fetch youtube data statemachine",
+    "context": "..",
+    "dockerFile": "../docker/lambda-local/Dockerfile"
+}

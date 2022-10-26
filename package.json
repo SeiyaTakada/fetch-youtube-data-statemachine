@@ -9,7 +9,11 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "deploy": "cdk deploy"
+    "deploy": "cdk deploy",
+    "create-sfn": "bash statemachine/create-sfn.sh",
+    "execute-sfn": "bash statemachine/execute-sfn.sh",
+    "describe-sfn": "bash statemachine/describe-sfn.sh",
+    "create-template": "cdk synth & npx cdk-asl-extractor cdk.out/FetchYoutubeDataStatemachineStack.template.json"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.108",
@@ -24,7 +28,13 @@
   },
   "dependencies": {
     "aws-cdk-lib": "2.47.0",
+    "cdk-asl-extractor": "^1.0.2",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"
+  },
+  "config": {
+    "stack": {
+      "name": "FetchYoutubeDataStatemachineStack"
+    }
   }
 }

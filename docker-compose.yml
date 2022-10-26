@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  lambda-local:
+    build:
+      context: .
+      dockerfile: ./docker/lambda-local/Dockerfile
+    ports:
+      - 3001:3001
+    working_dir: $PWD
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $PWD:$PWD
+    command: >
+      sam local start-lambda
+        -t cdk.out/FetchYoutubeDataStatemachineStack.template.json
+        --host 0.0.0.0
+        --container-host host.docker.internal
+  sfn-local:
+    image: amazon/aws-stepfunctions-local
+    ports:
+      - 8083:8083
+    environment:
+      AWS_DEFAULT_REGION: ap-northeast-1
+      AWS_ACCESS_KEY_ID: dummy
+      AWS_SECRET_ACCESS_KEY: dummy
+      LAMBDA_ENDPOINT: http://lambda-local:3001
