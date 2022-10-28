@@ -1,6 +1,6 @@
 {
     "Payload": {
-        "channel_ids": [
+        "firstInputs": [
             "aaa",
             "bbb"
         ]

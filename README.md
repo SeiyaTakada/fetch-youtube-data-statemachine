@@ -1,14 +1,32 @@
-# Welcome to your CDK TypeScript project
+# Step Functions + Lambda実行環境サンプル
 
-This is a blank project for CDK development with TypeScript.
+## テンプレートファイルの出力
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+```bash
+yarn create-template
+```
 
-## Useful commands
+## 各実行環境の起動
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+## ステートマシンの作成
+
+```bash
+bash ./statemachine/create-sfn.sh
+```
+
+## ステートマシンの実行
+
+```bash
+bash ./statemachine/execute-sfn.sh
+```
+
+## ステートマシンの実行結果取得
+
+```bash
+bash ./statemachine/describe-sfn.sh
+```

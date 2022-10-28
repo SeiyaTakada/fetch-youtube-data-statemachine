@@ -12,32 +12,32 @@ class FetchYoutubeDataStatemachineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const fetchChannelFunction = new lambda.NodejsFunction(this, 'FetchChannelFunction', {
-      entry: 'src/lambda/fetchChannel/app.ts',
+    const firstFunction = new lambda.NodejsFunction(this, 'firstFunction', {
+      entry: 'src/lambda/firstFunction/app.ts',
       handler: 'handler',
       timeout: Duration.minutes(2)
     })
 
-    const fetchVideoFunction = new lambda.NodejsFunction(this, 'FetchVideoFunction', {
-      entry: 'src/lambda/fetchVideo/app.ts',
+    const secondFunction = new lambda.NodejsFunction(this, 'secondFunction', {
+      entry: 'src/lambda/secondFunction/app.ts',
       handler: 'handler',
       timeout: Duration.minutes(2)
     })
 
-    const fetchChannel = new tasks.LambdaInvoke(this, 'FetchChannel', {
-      lambdaFunction: fetchChannelFunction,
+    const firstTask = new tasks.LambdaInvoke(this, 'firstTask', {
+      lambdaFunction: firstFunction,
       payload: stepfunctions.TaskInput.fromJsonPathAt('$.Payload'),
       resultPath: '$.Payload'
     })
 
-    const fetchVideo = new tasks.LambdaInvoke(this, 'FetchVideo', {
-      lambdaFunction: fetchVideoFunction,
+    const secondTask = new tasks.LambdaInvoke(this, 'secondTask', {
+      lambdaFunction: secondFunction,
       payload: stepfunctions.TaskInput.fromJsonPathAt('$.Payload'),
       resultPath: '$.Payload'
     })
 
-    const definition = fetchChannel
-      .next(fetchVideo)
+    const definition = firstTask
+      .next(secondTask)
       .next(new stepfunctions.Succeed(this, 'Succeed'))
 
     new stepfunctions.StateMachine(this, 'StateMachine', {
